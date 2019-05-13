@@ -11,10 +11,25 @@
  * Domain Path:     languages/
  */
 
- function wlp_shortcode(){ 
-     $posts = new WP_Query([
-         'posts_per_page' => 3,
-     ]);
+ function wlp_shortcode($atts=[]){ 
+     $mlp_atts = shortcode_atts([
+         //det samlade antal posts
+         'value' => 4,
+     ], $atts, $tag);
+     
+   
+       
+
+         $posts = new WP_Query([
+             'posts_per_page' => $mlp_atts['value'],
+         ]);
+        
+
+
+         //var_dump($atts)
+
+         
+     
 
      $output = "<h2>Latest Posts</h2>";
         if($posts->have_posts()) {
@@ -26,6 +41,7 @@
             $output .= "<li>";
             $output .= "<a href = '" .get_the_permalink() . "'> ";
             $output .=get_the_title();
+            $output .=get_the_category_list();
             $output .= "</a>";
             $output .= "</li>";
         }
@@ -42,3 +58,4 @@
 
  }
  add_action('init', 'wlp_init');
+
