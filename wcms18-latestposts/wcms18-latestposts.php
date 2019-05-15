@@ -2,7 +2,7 @@
 /**
  * Plugin Name:     WCMS18 Latest Posts
  * Plugin URI:      https://tilmann1970.se/naturupplevelser
- * Description:     This is my first Plugin
+ * Description:     This is my second Plugin
  * Version:         0.1
  * Author:          Tillmann Weimer
  * License:         WTFPL
@@ -41,7 +41,13 @@
             $output .= "<li>";
             $output .= "<a href = '" .get_the_permalink() . "'> ";
             $output .=get_the_title();
+            $output .="<br>";
+            $output .=" Kategorier ";
             $output .=get_the_category_list();
+            $output .=" by ";
+            $output .=get_the_author();
+            $output .=" at ";
+            $output .=get_the_date('Y-m-d');
             $output .= "</a>";
             $output .= "</li>";
         }
