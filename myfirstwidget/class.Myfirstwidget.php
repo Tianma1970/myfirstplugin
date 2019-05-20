@@ -11,7 +11,7 @@ class MyFirstWidget extends WP_Widget {
 			'my_first_widget', // Base ID
 			'My First Widget', // Name
 			[
-				'description' => __('A Sample Widget which can display text on different parts of your page', 'myfirstwidget'),
+				'description' => __('A Sample Widget', 'myfirstwidget'),
 			] // Args
 		);
 	}
@@ -50,16 +50,16 @@ class MyFirstWidget extends WP_Widget {
 		} else {
 			$title = __('New title', 'myfirstwidget');
 		}
-		
+		/*
 		if (isset($instance['content'])) {
 			$content = $instance['content'];
 		} else {
-			$content =__('New content', 'myfirstwidget');
+			$content = '';
 		}
-		
-		// $content = isset($instance['content'])
-		// 	? $instance['content']
-		// 	: '';
+		*/
+		$content = isset($instance['content'])
+			? $instance['content']
+			: '';
 		?>
 
 		<!-- title -->
@@ -90,9 +90,9 @@ class MyFirstWidget extends WP_Widget {
 
 			<textarea
 				class="widefat"
-				id="<?php echo $this->get_field_id(''); ?>"
+				id="<?php echo $this->get_field_id('content'); ?>"
 				name="<?php echo $this->get_field_name('content'); ?>"
-				rows="8"
+				rows="10"
 			><?php echo $content; ?></textarea>
 		 </p>
 		 <!-- /content -->
@@ -118,4 +118,4 @@ class MyFirstWidget extends WP_Widget {
 			: '';
 		return $instance;
 	}
-} 
+} // class MyFirstWidget
