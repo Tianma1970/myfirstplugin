@@ -1,6 +1,6 @@
 <?php
 
-
+//Add our settings page to the admin menu
 function wrp_add_settings_page_to_menu() {
     add_submenu_page(
                     'options-general.php',             //parent page
@@ -56,20 +56,23 @@ function wrp_settings_init(){
             //Default title
             add_settings_field(
                 'wrp_default_title',                //id
-                'Default title',    //label
-                'wrp_default_title_cb',
-                'relatedposts',
+                'Default title',                    //label
+                'wrp_default_title_cb',             //callback for rendering 
+                'relatedposts',                     //page to add setting to
                 'wrp_general_options'               //section to add setting field to
             
             );
 
-            register_setting('wrp_general_options', 'wrp_add_to_posts');
+            register_setting('wrp_general_options', 'wrp_default_title');
             
             add_settings_field(
                 'wrp_add_to_posts',                //id
-                'Add relatedPosts to all posts',    //label
+                'Add related Posts to all posts',    //label
                 'wrp_add_to_posts_cb',
-                'relatedposts',
+                //add a settings field
+                //'Show Metadata for all Posts',
+                //'wrp_show_metadata_for_posts_cb',
+                'relatedposts',                     //page to add setting to
                 'wrp_general_options'               //section to add setting field to
             
             );
@@ -82,13 +85,13 @@ add_action('admin_init', 'wrp_settings_init');
 
 function wrp_general_options_section() {
     ?>
-    <p>This is a very nice section</p>
+    <p>Related Posts</p>
 
     <?php 
-        // var_dump([
-		// 		'wrp_default_title' => get_option('wrp_default_title'),
-		// 		'wrp_add_to_posts' => get_option('wrp_add_to_posts'),
-		// 	]);
+         var_dump([
+		 		'wrp_default_title' => get_option('wrp_default_title'),
+		 		'wrp_add_to_posts' => get_option('wrp_add_to_posts'),
+		 	]);
     ?>
 
     <?php
@@ -104,8 +107,23 @@ function wrp_default_title_cb() {
 
     <?php
 }
-
+//Add related post to all posts
 function wrp_add_to_posts_cb() {
+    ?>
+        <input type="checkbox" 
+                name="wrp_add_to_posts"
+                id="wrp_add_to_posts" 
+                value="1" 
+                <?php 
+                    checked(1, get_option('wrp_add_to_posts'));
+                    ?>
+                    
+                >
+
+    <?php
+}
+//försök på att lägga till en
+function wrp_show_metadata_for_posts_cb() {
     ?>
         <input 
                 type="checkbox" 
