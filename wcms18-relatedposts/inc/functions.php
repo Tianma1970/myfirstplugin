@@ -2,12 +2,18 @@
 
 
 function wrp_get_related_posts($user_atts = [], $content = null, $tag = '') {
+
+	if(!is_single()) {
+		return;
+	}
+
+	$default_title = get_option('wrp_default_title', __('Related Posts', 'wcms18-relatedposts'));
 	$default_atts = [
 		'posts' => 3,
-		'title' => __('Related Posts', 'wcms18-relatedposts'),
+		'title' => $default_title,
 		'categories' => null,
 		'post' => get_the_ID(),
-		'show_metadata' => false,
+		'show_metadata' => true,
 	];
 	$atts = shortcode_atts($default_atts, $user_atts, $tag);
 	if (!empty($atts['categories'])) {
