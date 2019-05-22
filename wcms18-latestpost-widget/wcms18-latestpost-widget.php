@@ -4,10 +4,10 @@
  * Plugin URI:  https://thehiveresistance.com/myfirstwidget
  * Description: This plugin adds a widget to show the latest posts.
  * Version:     0.1
- * Author:      Johan Nordström
- * Author URI:  https://thehiveresistance.com
+ * Author:      Tillmann Weimer
+ * Author URI:  https://remlost.eu/retro
  * License:     WTFPL
- * License URI: http://www.wtfpl.net/
+ * License URI: http://remlost.eu/retro
  * Text Domain: wcms-18-latestposts-widget
  * Domain Path: /languages
  */
