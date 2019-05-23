@@ -32,8 +32,8 @@
     $characters = get_transient('swapi_get_character_' . $character_id);
      
                 //if so return the cached films
-                if($character) {
-                    return $character;
+                if($characters) {
+                    return $characters;
                 } else {
                 //otherwisw retrieve the films from the Starwars API
                 $result = wp_remote_get('https://swapi.co/api/people/' . $character_id);
