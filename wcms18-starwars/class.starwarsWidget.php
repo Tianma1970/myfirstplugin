@@ -41,18 +41,38 @@ class StarWarsWidget extends WP_Widget {
 			echo $before_title . $title . $after_title;
 		}
 
-					
+			/*		
+			$vehicles = swapi_get_vehicles();
+			if($vehicles) { 
+				echo "<p>Total number of Vehicles:" . count($vehicles) . "</p>"; 
+				echo "<ul>";
+				foreach($vehicles as $vehicle) {
+					?>
+					 <li>
+					 <?php echo $vehicle->name; ?><br>
+					 <small>
+					 	Manufacturer: <?php echo $vehicle->manufacturer; ?>
+						 <br>
+						Model: <?php echo $vehicle->model; ?><br>
+						
+					</small> 
+					 </li>
+				<?php
+				}
+				echo "</ul>";
+			
+		} else {
+			echo "Something went wrong, please try again.";
+		}
+		*/
+		
+
+			/*
 			$films = swapi_get_films();
 			if($films) { 
+				echo "<p>Total number of films:" . count($films) . "</p>";
 				echo "<ul>";
 				foreach($films as $film) {
-					$character_names = [];
-					foreach($film->characters as $character_url) {
-						$exploded_character_url = explode('/', $character_url);
-						$character_id = $exploded_character_url[5];
-						$character = swapi_get_character($character_id);
-						array_push($character_names, $character->name);
-					}
 					?>
 					 <li>
 					 <?php echo $film->title; ?><br>
@@ -60,7 +80,8 @@ class StarWarsWidget extends WP_Widget {
 					 	Release date: <?php echo $film->release_date; ?>
 						 <br>
 						Episode: <?php echo $film->episode_id; ?><br>
-						Characters: <?php echo implode(', ', $character_names); ?><br>
+						Species: <?php echo count($film->species); ?><br>
+						Vehicles: <?php echo count($film->vehicles); ?><br>
 						Planets visited: <?php echo count($film->planets); ?><hr>
 					</small> 
 					 </li>
@@ -71,6 +92,36 @@ class StarWarsWidget extends WP_Widget {
 		} else {
 			echo "Something went wrong, please try again.";
 		}
+		*/
+		/*
+		$characters = swapi_get_characters();
+			if($characters) { 
+				echo "<p>Total number of characters:" . count($characters) . "</p>";
+				echo "<ul>";
+				foreach($characters as $character) {
+					?>
+					 <li>
+					 <?php echo $character->name; ?><br>
+					 <small>
+					 	 
+						 
+						Birth Year: <?php echo $character->birth_year; ?><br>
+						height: <?php echo count($character->height); ?>cm<br>
+						Mass: <?php echo count($character->mass); ?>kg<br>
+						Planets visited: <?php echo ($character->planets); ?><hr>
+					</small> 
+					 </li>
+				<?php
+				}
+				echo "</ul>";
+			
+		} else {
+			echo "Something went wrong, please try again.";
+		}
+		*/
+		$luke = swapi_get_character(1);
+		echo "Luke is {$luke->height} cm tall. ";
+		
 
 		
 

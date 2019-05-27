@@ -3,49 +3,107 @@
  * Functions for communicating with the Starwars API
  */
 
- function swapi_get_films() {
-     //do we have the films cached?
-    $films = get_transient('swapi_get_films');
-     
-                //if so return the cached films
-                if($films) {
-                    return $films;
-                } else {
-                //otherwisw retrieve the films from the Starwars API
-                $result = wp_remote_get('https://swapi.co/api/films/');
-    
-                if(wp_remote_retrieve_response_code($result) === 200) {
-                    $data = json_decode(wp_remote_retrieve_body($result));
-                    $films = $data->results;
-                    set_transient('swapi_get_films', $films, 60*60); 
+ function swapi_get_url($url) {
+     $response = wp_remote_get($url);
 
-                    return $films;
-                } else {
-                    return false;
-            }
+     if(is_wp_error($response)) {
+         return false;
+     }
+
+    
+     return json_decode(wp_remote_retrieve_body($response));
+
+     
+ }
+
+ function swapi_get($endpoint, $id = null, $expiry = 3600) {
+     $transient_key = "swapi_get_{$endpoint}";
+     if($id) {
+         $transient_key .= "_{$id}";
+     }
+     $items = get_transient($transient_key);
+     
+     if(!$items) {
+         if($id) {
+             $items = swapi_get_url("https://swapi.co/api/{$endpoint}/{$id}");
+
+         } else { 
+         
+         $items = [];
+         $url = "https://swapi.co/api/{$endpoint}";
+    
+         while($url) {
+             $data = swapi_get_url($url);
+    
+             if(!$data) {
+                 return false;
+             }
+    
+             $items = array_merge($items, $data->results);
+    
+             $url = $data->next;//https://swapi.co/ | null
+         }
+        }
+         //save for future use
+         set_transient($transient_key, $items, $expiry);
+
         }
     
+
+        return $items;
     }
- 
+
+     
+
+    function swapi_get_films() {
+     
+    return swapi_get('films');
+}
+    
+
+    function swapi_get_planets() {
+     
+    return swapi_get('planets');
+}
+    
+    function swapi_get_planet($planet_id) {
+     
+    return swapi_get('planets', $planet_id);
+}
+    
+
+    function swapi_get_starships() {
+     
+    return swapi_get('starships');
+}
+        
+    
+    function swapi_get_vehicles() {
+         
+    return swapi_get('vehicles');
+                    
+}
+    function swapi_get_vehicle($vehicle_id) {
+         
+    return swapi_get('vehicles', $vehicle_id);
+                    
+}
+        
+
+    function swapi_get_characters() {
+     
+    return swapi_get('people');
+
+}
+
     function swapi_get_character($character_id) {
-     //do we have the films cached?
-    $characters = get_transient('swapi_get_character_' . $character_id);
-     
-                //if so return the cached films
-                if($characters) {
-                    return $characters;
-                } else {
-                //otherwisw retrieve the films from the Starwars API
-                $result = wp_remote_get('https://swapi.co/api/people/' . $character_id);
-    
-                if(wp_remote_retrieve_response_code($result) === 200) {
-                    $character = json_decode(wp_remote_retrieve_body($result));
-                    set_transient('swapi_get_character_' . $character_id, $character, 60*60*24*7); 
 
-                    return $character;
-                } else {
-                    return false;
-            }
-        }
-    }
+    return swapi_get('people', $character_id);
+    
+}
+
+                    
+
+                    
+    
  
