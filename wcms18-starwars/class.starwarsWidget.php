@@ -67,7 +67,7 @@ class StarWarsWidget extends WP_Widget {
 		*/
 		
 
-			/*
+			
 			$films = swapi_get_films();
 			if($films) { 
 				echo "<p>Total number of films:" . count($films) . "</p>";
@@ -92,7 +92,7 @@ class StarWarsWidget extends WP_Widget {
 		} else {
 			echo "Something went wrong, please try again.";
 		}
-		*/
+		
 		/*
 		$characters = swapi_get_characters();
 			if($characters) { 
@@ -119,8 +119,12 @@ class StarWarsWidget extends WP_Widget {
 			echo "Something went wrong, please try again.";
 		}
 		*/
+		
 		$luke = swapi_get_character(1);
-		echo "Luke is {$luke->height} cm tall. ";
+		echo "Luke is {$luke->height} cm tall. ";  
+		
+		$bengt = swapi_get_character(2);
+		echo "Bengt is {$bengt->height} cm tall. ";
 		
 
 		
